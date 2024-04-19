@@ -1,1 +1,2 @@
 IMDbPY==2022.7.9
+discord.py

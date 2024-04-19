@@ -45,7 +45,7 @@ def help() -> str:
     """ !help
         Used to give the user all the commands 
         and how to use them """
-    resp = """Please see below all the commands\n1. !help - Get a list of commands\n2. !ping - pong\n3. !echo - repeats the message back\n4. !rate [movie title] *[x] - Rate a movie out of 10 where x is the rating\n5. !top [x] - Get a list of top x number of movies\n6. !mymovies - Get a list of all the movies you have rated\n7. !usermovies @[user] - Get a list of all the movies a user has rated\n8. !add [movie title] - Add a movie to your watchlist\n9. !remove [movie title] - Remove a movie from your watchlist\n10. !watchlist or !wl - Return your watchlist, or tag a user to ee theirs\n11. !random - Get a random movie from your watchlist\n"""
+    resp = """Please see below all the commands\n1. !help - Get a list of commands\n2. !ping - pong\n3. !echo - repeats the message back\n4. !rate [movie title] *[x] - Rate a movie out of 10 where x is the rating\n5. !top [x] - Get a list of top x number of movies\n6. !mymovies - Get a list of all the movies you have rated\n7. !usermovies @[user] - Get a list of all the movies a user has rated\n8. !add [movie title] - Add a movie to your watchlist\n9. !remove [movie title] - Remove a movie from your watchlist\n10. !watchlist or !wl - Return your watchlist, or tag a user to see theirs\n11. !random - Get a random movie from your watchlist\n"""
     return resp
 
 def ping() -> str:
@@ -71,14 +71,18 @@ def rate(id: str, msg: str) -> str:
     except:
         resp = "Please make sure your rating is a number"
     else:
-            try:
-                scorecard.add_rating(title, id, rate)
-            except InvalidMovie:
-                resp = "This movie could not be found, please check the spelling and try again"
-            except:
-                resp = "Something went wrong :("
+            if 0 <= rate < 10:
+                try:
+                    scorecard.add_rating(title, id, rate)
+                except InvalidMovie:
+                    resp = "This movie could not be found, please check the spelling and try again"
+                except:
+                    resp = "Something went wrong :("
+                else:
+                    resp = f"<@{id}> rated {title} {rate}/10"
+                
             else:
-                resp = f"<@{id}> rated {title} {rate}/10"
+                resp = "Please make sure your rating is between 0 and 10 inclusive"
     return resp
 
 
@@ -144,7 +148,9 @@ def remove(id: str, msg: str) -> str:
     title = msg
     if title in wl.watchlists[id].watchlist:
         wl.watchlists[id].watchlist.remove(title)
-    resp = f"{title} removed from your watchlist."
+        resp = f"{title} removed from your watchlist."
+    else:
+        resp = f"{title} was not found in your watchlist"
     return resp
 
 
