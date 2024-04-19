@@ -7,7 +7,7 @@ Installation
 
    1. Clone the repository:
    
-      git clone https://github.com/yourusername/moviedb.git
+      git clone https://github.com/OKDavies/MonBu
 
    2. Install the required dependencies:
    
@@ -19,6 +19,8 @@ Installation
 
       To get your own token follow the steps in this guide:
          https://discordpy.readthedocs.io/en/stable/discord.html
+
+   4. Invite the bot to your server and in the "bot" tab on the discord applications page turn on the three sliders uner "Priviledged Intents"
 
 
 
