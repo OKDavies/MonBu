@@ -7,7 +7,7 @@ Installation
 
    1. Clone the repository:
    
-      git clone https://github.com/yourusername/moviedb.git
+      git clone https://github.com/OKDavies/MonBu
 
    2. Install the required dependencies:
    
