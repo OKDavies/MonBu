@@ -44,24 +44,24 @@ Integration with Discord
 The bot integrates with Discord using the discord.py library. It listens for messages in Discord channels and responds to messages that start with the command prefix !. The commands.py script contains the logic for handling commands.
 
 Additional Context
-The bot includes additional functionality through the following classes:
+MonBu includes additional functionality through the following classes:
 
-InvalidMovie Exception
+InvalidMovie Exception:
 Raised when the movie cannot be found on IMDB.
 
-Scorecard Class
+Scorecard Class:
 Manages movie ratings and averages.
 Adds movies and their ratings.
 Sorts movies by average rating.
 
-Movie Class
+Movie Class:
 Represents individual movies with their ratings and averages.
 Calculates the average rating of a movie.
 
-Watchlists Class
+Watchlists Class:
 Manages all user watchlists.
 Adds and retrieves watchlists for users.
 
-Watchlist Class
+Watchlist Class:
 Represents a user's watchlist.
 Adds movies to the watchlist.
