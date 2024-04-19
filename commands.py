@@ -71,7 +71,7 @@ def rate(id: str, msg: str) -> str:
     except:
         resp = "Please make sure your rating is a number"
     else:
-            if 0 <= rate < 10:
+            if 0 <= rate <= 10:
                 try:
                     scorecard.add_rating(title, id, rate)
                 except InvalidMovie:
