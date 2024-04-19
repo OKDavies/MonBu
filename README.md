@@ -20,7 +20,7 @@ Installation
       To get your own token follow the steps in this guide:
          https://discordpy.readthedocs.io/en/stable/discord.html
 
-   4. Invite the bot to your server, and run the MonBu.py
+   4. Invite the bot to your server and in the "bot" tab on the discord applications page turn on the three sliders uner "Priviledged Intents"
 
 
 
