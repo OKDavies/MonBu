@@ -1,0 +1,58 @@
+{
+    "Shrek": {
+        "title": "Shrek",
+        "ratings": {
+            "187657197168099338": 7
+        },
+        "average": 7.0
+    },
+    "Dirty Dancing": {
+        "title": "Dirty Dancing",
+        "ratings": {
+            "187657197168099338": 9
+        },
+        "average": 9.0
+    },
+    "Cars": {
+        "title": "Cars",
+        "ratings": {
+            "187657197168099338": 3
+        },
+        "average": 3.0
+    },
+    "Top Gun": {
+        "title": "Top Gun",
+        "ratings": {
+            "187657197168099338": 8
+        },
+        "average": 8.0
+    },
+    "Shrek 2": {
+        "title": "Shrek 2",
+        "ratings": {
+            "187657197168099338": 7
+        },
+        "average": 7.0
+    },
+    "Inception": {
+        "title": "Inception",
+        "ratings": {
+            "187657197168099338": 2
+        },
+        "average": 2.0
+    },
+    "Cars 2": {
+        "title": "Cars 2",
+        "ratings": {
+            "187657197168099338": 6
+        },
+        "average": 6.0
+    },
+    "Cars 3": {
+        "title": "Cars 3",
+        "ratings": {
+            "187657197168099338": 6
+        },
+        "average": 6.0
+    }
+}
