@@ -17,6 +17,9 @@ Installation
    
       DISCORD_TOKEN=your_discord_bot_token
 
+      To get your own token follow the steps in this guide:
+         https://discordpy.readthedocs.io/en/stable/discord.html
+
 
 
 Usage
