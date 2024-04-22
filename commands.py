@@ -2,7 +2,7 @@ import random
 from classes import InvalidMovie
 
 
-def navigate(command: str, id=None, content=None) -> str:
+def navigate(scorecard: object, watchlists: object, command: str, id=None, content=None) -> str:
     command = command.lower()
 
     function_map = {
@@ -10,15 +10,15 @@ def navigate(command: str, id=None, content=None) -> str:
         "help": (help,),
         "ping": (ping,),
         "echo": (echo, content),
-        "rate": (rate, id, content),
-        "top": (top, content),
-        "mymovies": (mymovies, id),
-        "usermovies": (usermovies, content),
-        "add": (add,id, content),
-        "remove": (remove, id, content),
-        "random": (random_from_watchlist, id),
-        "watchlist": (watchlist, id, content),
-        "wl": (watchlist, id, content) 
+        "rate": (rate, id, content, scorecard),
+        "top": (top, content, scorecard),
+        "mymovies": (mymovies, id, scorecard),
+        "usermovies": (usermovies, content, scorecard),
+        "add": (add,id, content, watchlists),
+        "remove": (remove, id, content, watchlists),
+        "random": (random_from_watchlist, id, watchlists),
+        "watchlist": (watchlist, id, content, watchlists),
+        "wl": (watchlist, id, content, watchlists) 
     }
 
     if command in function_map:
@@ -48,6 +48,7 @@ def help() -> str:
     resp = """Please see below all the commands\n1. !help - Get a list of commands\n2. !ping - pong\n3. !echo - repeats the message back\n4. !rate [movie title] *[x] - Rate a movie out of 10 where x is the rating\n5. !top [x] - Get a list of top x number of movies\n6. !mymovies - Get a list of all the movies you have rated\n7. !usermovies @[user] - Get a list of all the movies a user has rated\n8. !add [movie title] - Add a movie to your watchlist\n9. !remove [movie title] - Remove a movie from your watchlist\n10. !watchlist or !wl - Return your watchlist, or tag a user to see theirs\n11. !random - Get a random movie from your watchlist\n"""
     return resp
 
+
 def ping() -> str:
     """ !ping
         Used to test the bot is active quickly """
@@ -61,11 +62,11 @@ def echo(msg: str) -> str:
     return msg
 
 
-def rate(id: str, msg: str) -> str:
+def rate(id: str, msg: str, scorecard: object) -> str:
     """ !rate [movie title] *[x]          
         Allows the message author to rate a movie x /10 """
     split = msg.split("*", 1)
-    title = split[0].lower()
+    title = split[0].lower().strip()
     try:
         rate = int(split[1])
     except:
@@ -79,6 +80,7 @@ def rate(id: str, msg: str) -> str:
                 except:
                     resp = "Something went wrong :("
                 else:
+                    print(rate)
                     resp = f"<@{id}> rated {title} {rate}/10"
                 
             else:
@@ -86,7 +88,7 @@ def rate(id: str, msg: str) -> str:
     return resp
 
 
-def top(num: str) -> str: 
+def top(num: str, scorecard: object) -> str: 
     """ !top [x]          
         Where x is an integer, returns the top 
         rated x number of movies """
@@ -101,7 +103,7 @@ def top(num: str) -> str:
     return resp
 
 
-def mymovies(id: str) -> str: 
+def mymovies(id: str, scorecard: object) -> str: 
     """ !mymovies         
         Returns movies rated by the message author
         executing the command """
@@ -116,7 +118,7 @@ def mymovies(id: str) -> str:
     return resp
 
 
-def usermovies(msg: str) -> str:
+def usermovies(msg: str, scorecard: object) -> str:
     """ !usermovies <@user>           
         Returns the movies rated by the specified user """
     resp = f"Below are all the movies {msg} has rated:\n"
@@ -130,7 +132,7 @@ def usermovies(msg: str) -> str:
     return resp
 
 
-def add(id: str, msg: str) -> str: 
+def add(id: str, msg: str, wl: object) -> str: 
     """ !add [movie title]                
         Adds a movie to message author's watchlist """
     title = msg.lower()
@@ -142,10 +144,10 @@ def add(id: str, msg: str) -> str:
     return resp
 
 
-def remove(id: str, msg: str) -> str: 
+def remove(id: str, msg: str, wl: object) -> str: 
     """ !remove [title]           
         Removes movie from message author's watchlist """
-    title = msg
+    title = msg.lower()
     if title in wl.watchlists[id].watchlist:
         wl.watchlists[id].watchlist.remove(title)
         resp = f"{title} removed from your watchlist."
@@ -154,7 +156,7 @@ def remove(id: str, msg: str) -> str:
     return resp
 
 
-def random_from_watchlist(id: str) -> str: 
+def random_from_watchlist(id: str, wl: object) -> str: 
     """ !random                   
         Returns a random movie from message author's watchlist """
     print(wl.watchlists[id].watchlist)
@@ -167,7 +169,7 @@ def random_from_watchlist(id: str) -> str:
     return resp
 
 
-def watchlist(id: str, msg: str) -> str: 
+def watchlist(id: str, msg: str, wl: object) -> str: 
     """ !watchlist or !wl                   
         Gets message author's or specified user's
         watchlist. """

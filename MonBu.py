@@ -2,7 +2,7 @@ import os
 import discord
 import atexit
 from dotenv import load_dotenv
-from json_utils import save_data, get_json_data
+from data_json.json_utils import save_data, get_json_data
 from classes import Scorecard, Watchlists
 import commands
 
@@ -11,11 +11,11 @@ load_dotenv()
 
 
 def load_data():
-    ratings_json = get_json_data("movies.json")
+    ratings_json = get_json_data("data_json/movies.json")
     for title, movie_data in ratings_json.items():
         scorecard.add_movie(title, movie_data)
 
-    watchlist_json = get_json_data("watchlist.json")
+    watchlist_json = get_json_data("data_json/watchlist.json")
     for user, wl in watchlist_json.items():
         watchlists.add_watchlist(user, wl)
 
@@ -23,8 +23,6 @@ def load_data():
 scorecard = Scorecard()
 watchlists = Watchlists()
 load_data()
-commands.scorecard = scorecard
-commands.wl = watchlists
 
 
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -48,16 +46,16 @@ async def on_message(message):
         UID = message.author.id 
         UID = str(UID)        
         msg = message.content[1:]       
-        split = msg.split( ' ', 1)      
+        split = msg.split(' ', 1)      
         # Checks whether the command has content or is just a single word command
         if len(split) > 1:                                
             cmd = split[0]              
             content = split[1]          
-            resp = commands.navigate(cmd, UID, content)
+            resp = commands.navigate(scorecard, watchlists, cmd, UID, content)
 
         else:    
             cmd = split[0]
-            resp = commands.navigate(cmd, UID)
+            resp = commands.navigate(scorecard, watchlists, cmd, UID)
         # print(UID)
         # print(resp)
         # Send a message with the response from the executed command
