@@ -2,9 +2,9 @@
     "Shrek": {
         "title": "Shrek",
         "ratings": {
-            "187657197168099338": 4
+            "187657197168099338": 6
         },
-        "average": 2.0
+        "average": 6.0
     },
     "Dirty Dancing": {
         "title": "Dirty Dancing",
@@ -64,6 +64,20 @@
     },
     "Dune": {
         "title": "Dune",
+        "ratings": {
+            "187657197168099338": 9
+        },
+        "average": 9.0
+    },
+    "Titanic": {
+        "title": "Titanic",
+        "ratings": {
+            "187657197168099338": 10
+        },
+        "average": 10.0
+    },
+    "Grease": {
+        "title": "Grease",
         "ratings": {
             "187657197168099338": 9
         },

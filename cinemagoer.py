@@ -2,9 +2,9 @@ from imdb import Cinemagoer
 
 ia = Cinemagoer()
 
-def is_valid_movie(title: str) -> bool:
+def get_movie_url(title: str) -> bool:
     """ Searches via the IMDB library whether a movie exists or not """
     movie = ia.search_movie(title) 
-    movie = movie[0]["title"].lower().strip()
-    title = title.lower().strip()
-    return movie == title
+    movie_id = movie[0]
+    movie_url = ia.get_imdbURL(movie_id)
+    return movie_url

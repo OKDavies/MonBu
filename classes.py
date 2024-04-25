@@ -1,10 +1,4 @@
 import string
-from cinemagoer import is_valid_movie
-
-
-class InvalidMovie(Exception):
-    "Raised when the movie cannot be found on IMDB"
-    pass
 
 
 
@@ -13,6 +7,8 @@ class Scorecard():
         Future development of this class and the susequent Movie class would be to 
         incorporate more information about the movies such as, description, run length,
         actors, etc. """
+    
+
     def __init__(self) -> None:
         self.movies: dict[str, object]= {}
 
@@ -28,10 +24,7 @@ class Scorecard():
         if title in self.movies:
             self.movies[title].add_rating(user, rate)
         else:
-            if is_valid_movie(title):
-                self.add_movie(title, {"ratings":{user: rate}})
-            else:
-                raise InvalidMovie
+            self.add_movie(title, {"ratings":{user: rate}})
 
 
     def sort_movies_by_average(self, num: int) -> list:
@@ -40,6 +33,8 @@ class Scorecard():
 
 
 class Movie():
+
+
     def __init__(self, title: str, data: dict) -> None:
         self.title = title
         self.ratings = data["ratings"]
@@ -68,6 +63,8 @@ class Watchlists():
         so the user can rank their priority for what they want to watch. 
         Possibly adding a feature to track the date and giving reminders once x
         weks have passed with a movie on their watchlist """
+    
+
     def __init__(self) -> None:
         self.watchlists: dict[str, object] = {}
 
@@ -76,7 +73,10 @@ class Watchlists():
         self.watchlists[user] = Watchlist(wl)
 
 
+
 class Watchlist():
+
+
     def __init__(self, wl: list) -> None:
         self.watchlist: list[str] = wl
 
@@ -84,12 +84,19 @@ class Watchlist():
     def add_to_watchlist(self, title: str) -> str:
         resp = "Something went wrong :("
         title = string.capwords(title)
-        if is_valid_movie(title):
-            if title in self.watchlist:
-                resp = "Movie is already in your watchlist"
-            else: 
-                self.watchlist.append(title)
-                resp = f"{title} has been added to your watchlist"
+        if title in self.watchlist:
+            resp = "Movie is already in your watchlist"
+        else: 
+            self.watchlist.append(title)
+            resp = f"{title} has been added to your watchlist"
+        return resp
+    
+
+    def remove_from_watchlist(self, title: str) -> str:
+        title = string.capwords(title)
+        if title in self.watchlist:
+            self.watchlist.remove(title)
+            resp = f"{title} was removed from your watchlist"
         else:
-            resp = "Movie could not be found please check the spelling and try again."
+            resp = f"{title} could not be found in your watchlist"
         return resp
